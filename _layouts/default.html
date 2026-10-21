@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{%- if page.csp %}
+<meta http-equiv="Content-Security-Policy" content="{{ page.csp | strip_newlines | strip }}">
+{%- endif %}
 <title>{% if page.url != "/" %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }} — {{ site.tagline }}{% endif %}</title>
 <meta name="description" content="{{ page.description | default: site.description | strip_newlines }}">
 <link rel="canonical" href="{{ page.url | absolute_url }}">
@@ -71,25 +74,7 @@
 </footer>
 
 <div class="lightbox" id="lightbox" hidden><img src="" alt=""></div>
-<script>
-(function(){
-  var box=document.getElementById("lightbox"),full=box.firstElementChild;
-  document.addEventListener("click",function(e){
-    var shot=e.target.closest(".shot button");
-    if(shot){
-      var img=shot.querySelector("img");
-      full.src=img.currentSrc||img.src;
-      full.alt=img.alt;
-      box.hidden=false;
-    }else if(!box.hidden){
-      box.hidden=true;
-    }
-  });
-  document.addEventListener("keydown",function(e){
-    if(e.key==="Escape")box.hidden=true;
-  });
-})();
-</script>
+<script src="{{ '/assets/js/site.js' | relative_url }}"></script>
 
 </body>
 </html>

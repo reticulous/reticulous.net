@@ -25,6 +25,7 @@ that moment.
 | `_layouts/default.html` | The page chrome: header, sidebar, article card, footer |
 | `_layouts/doc.html` | Bare skeleton for standalone documents that carry their own CSS |
 | `assets/css/site.css` | The whole design, in one file |
+| `assets/js/site.js` | The lightbox, the chrome's one script |
 | `assets/img/` | Screenshots the pages show |
 | `index.md`, `overview.md`, … | The pages |
 | `catalogues` | Which image catalogues the site offers |
@@ -35,13 +36,21 @@ is what the `nav:` entries in `_config.yml` point at — add a page and its nav
 entry together.
 
 The design is shared with [spangap.org](https://github.com/spangap/spangap.org);
-`site.css` and `_layouts/` are identical in the two repos and `--brand` is the
-one token that differs, so a change to either belongs in both.
+`site.css`, `site.js` and `_layouts/` are identical in the two repos and
+`--brand` is the one token that differs, so a change to any of them belongs in
+both.
+
+The chrome carries no inline script: its one behaviour is in `assets/js/site.js`,
+loaded by `src`. That is what lets a page carry a Content-Security-Policy that
+forbids inline script. A page states one as `csp:` in its front matter and the
+layout emits it as a `<meta http-equiv>` in the head — the only form GitHub
+Pages can deliver, since it sends no response headers of its own. A page that
+sets `csp:` must keep its own style and script in files under `assets/` too.
 
 A screenshot goes in as a `figure.shot` whose image is wrapped in a button —
-`default.html` carries one overlay and a delegating click handler, so that
-markup is the whole of it and clicking the shot enlarges it (click anywhere, or
-Esc, to dismiss):
+`default.html` carries one overlay and `site.js` a delegating click handler, so
+that markup is the whole of it and clicking the shot enlarges it (click
+anywhere, or Esc, to dismiss):
 
 ```html
 <figure class="shot">
