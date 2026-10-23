@@ -17,7 +17,10 @@ GitHub organisation.
 
 - **`spangap/hw-lilygo-tdeck`** — LilyGO T-Deck Plus: LoRa (SX1262), 320×240
   LCD, QWERTY keyboard, trackball, GNSS and microSD.
-- **`spangap/hw-heltecv4`** — Heltec V4 LoRa board (headless).
+- **`spangap/hw-heltecv4-r2`** — Heltec V4 LoRa board, 2 MB PSRAM version
+  (OLED status display).
+- **`spangap/hw-heltecv4-r8`** — Heltec V4 LoRa board, 8 MB PSRAM version
+  (OLED status display).
 - **`spangap/hw-meshnology-w12`** — Meshnology W12: LR2021 dual-band LoRa behind
   a 30 dBm front end, 0.96" OLED, GNSS header.
 - **`spangap/hw-wismesh-tap-v2`** — RAK WisMesh TAP V2: handheld LoRa (SX1262)

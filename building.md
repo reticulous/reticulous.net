@@ -53,7 +53,7 @@ get it onto your WiFi and set a password.
 ## Building for a different board
 
 Replace `hw-lilygo-tdeck` with any of the other board straddles listed in the
-[overview]({{ '/overview/' | relative_url }}) — `hw-heltecv4`,
+[overview]({{ '/overview/' | relative_url }}) — `hw-heltecv4-r2`, `hw-heltecv4-r8`,
 `hw-meshnology-w12`, `hw-wismesh-tap-v2` and the rest.
 
 Leave off `--with ...` entirely to get the generic build, which works on any

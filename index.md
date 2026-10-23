@@ -33,7 +33,7 @@ your hand. Click to enlarge.</figcaption>
 ## Supported hardware
 
 Reticulous runs on a growing list of boards: the LilyGO T-Deck Plus, the Heltec
-V4, the Meshnology W12, the RAK WisMesh TAP V2, the LilyGo T-Beam S3 Supreme,
+V4 (both the 2 MB and 8 MB PSRAM versions), the Meshnology W12, the RAK WisMesh TAP V2, the LilyGo T-Beam S3 Supreme,
 the Waveshare ESP32-S3-Touch-LCD-2.8B, the Retia Nibble Zero, the Seeed XIAO
 ESP32S3 with Wio-SX1262, and the LilyGo T3-S3. They are listed with their radios
 and peripherals in the [overview]({{ '/overview/' | relative_url }}).
