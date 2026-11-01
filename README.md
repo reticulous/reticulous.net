@@ -90,39 +90,28 @@ the image zips plus the `index.html`, `timestamp` and `builds.yaml` that
 `spangap make-builds` wrote beside them. The release is the durable store; what
 the site serves is a snapshot copied in at deploy time.
 
-Publishing is **`<workspace>/reticulous-builds/deploy-builds`**, run on the
-host — one script for the whole tree, not one invocation per catalogue:
+Publishing is **`spangap publish-builds`**:
 
 ```sh
 cd <workspace>/reticulous-builds/stable && spangap make-builds
-cd <workspace>/reticulous-builds && ./deploy-builds   # or --dry-run first
+cd <workspace>/reticulous-builds && spangap publish-builds   # or --dry-run first
 ```
 
-It walks every directory here holding a `builds.yaml`, brings its release into
-line with what the directory holds, and fires one `repository_dispatch` at the
-end if anything moved. Assets the directory no longer carries are deleted, which
-is what retires a superseded image: a new build lands under a new stamp and
-never overwrites its predecessor.
+Run in `reticulous-builds/`, it walks every catalogue there, brings each release
+into line with what its directory holds — uploading only what changed, deleting
+what the directory no longer carries — and holds back `local` and any catalogue
+with a `.nodeploy` marker unless it is named (`spangap publish-builds rop`). Run
+inside one catalogue, it publishes just that one. Each published catalogue's
+`builds.yaml` carries `notify: reticulous/reticulous.net`, which is what makes
+the run end with the `catalogue-published` dispatch that redeploys this site; a
+catalogue without that line reaches its release and never the site. The
+spangap build-system README describes the command in full.
 
-What counts as changed differs by kind. An image is settled by its name and
-size, since the stamp in a zip's name is unique to the build inside it.
-`index.html`, `timestamp` and `builds.yaml` are rewritten in place by every
-`spangap make-builds` and keep both their names and, as a rule, their sizes — a
-stamp is fixed-width, and an index listing the same images under new stamps is
-the same length it was — so the release's own copies are fetched and compared
-byte for byte.
-
-Two catalogues are held back from a bare run: `local`, which is whatever
-this machine last compiled, and any directory carrying a `.nodeploy` marker.
-Naming a catalogue on the command line (`./deploy-builds rop`) publishes it
-regardless — asking for it by name is the deliberate act the marker exists to
-require.
-
-Adding a catalogue means adding its name to `catalogues` and committing — the
-deploy publishes what that file lists, and a name removed from it disappears
-from the site at the next deploy without touching its release. `deploy-builds`
-warns when it publishes a catalogue this file does not name, since the symptom
-otherwise is a catalogue that simply never appears.
+Adding a catalogue means giving its `builds.yaml` that `notify:` line, and
+adding its name to `catalogues` and committing — the deploy publishes what that
+file lists, and a name removed from it disappears from the site at the next
+deploy without touching its release. A catalogue published but missing from the
+file simply never appears.
 
 A catalogue carrying a **`.unlisted`** file is deployed and reachable by naming
 it (`?build=<name>`, or the settings panel's Build selector) but is left out of

@@ -28,9 +28,9 @@ on:
         description: 'Override the catalogues file, space separated (one-off)'
         required: false
         default: ''
-  # The workspace's reticulous-builds/deploy-builds (or `spangap publish-builds --notify`)
-  # fires this after uploading a catalogue, so a new image is on the site
-  # without a commit.
+  # `spangap publish-builds` fires this after uploading a catalogue whose
+  # builds.yaml says `notify: reticulous/reticulous.net`, so a new image is on
+  # the site without a commit.
   repository_dispatch:
     types: [catalogue-published]
 
